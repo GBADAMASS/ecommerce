@@ -13,13 +13,14 @@ class Role extends Model
         'libelle',
     ];
 
-    //// à revoir
-
-    /**
+/**
      * Relation avec les utilisateurs
      */
+
+
     public function users()
     {
         return $this->hasMany(User::class);
     }
+
 }
