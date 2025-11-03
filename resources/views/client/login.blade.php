@@ -18,28 +18,69 @@
   <body>
 
 
-    <form  action="{{ route('')}}" method="post" class="register-form" style=" align-item:center; width: 350px; margin: auto;  margin-top: 2rem; margin-left: 2rem;  padding: 20px; border-radius: 20px; background-color: #cea7a76b;">
+    <form action="{{ route('client.login.post') }}" method="post" class="register-form" style="align-items:center; width: 350px; margin: auto; margin-top: 2rem; margin-left: 2rem; padding: 20px; border-radius: 20px; background-color: #cea7a76b;">
         @csrf
-    <div class="text-center mb-4">
-        <h2 style="width: 100%; color: #000000; font-size: xx-large; ">Connexion</h2>
-      </div>
-  <div class="form-group ">
-    <label for="Email" class="form-label" style="font-size: 14px;margin-bottom: 5px;display: block;color: #000000;">Adresse email</label>
-    <input type="email" name="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Entrez votre email">
-  </div>
-  <div class="form-group ">
-    <label for="Password" class="form-label" style="font-size: 14px;margin-bottom: 5px;display: block;color: #000000;">Mot de passe</label>
-    <input type="password" name="password" class="form-control" id="Password" placeholder="Entrez votre mot de passe" style="font-size: 14px;margin-bottom: 5px;display: block;color: #000000;">
-  </div>
+        
+        <div class="text-center mb-4">
+            <h2 style="width: 100%; color: #000000; font-size: xx-large;">Connexion</h2>
+        </div>
 
-  <div class="form-group ">
-   <P> <a href="{{route('client.register')}}">créer un compte</a></P>
-    </div>
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session()->get('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-  </div>
+        @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session()->get('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
-  <button type="submit" name="valider" style.display = 'none'; class="btn btn-primary">Connexion</button>
-</form>
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <div class="form-group mb-3">
+            <label for="Email" class="form-label" style="font-size: 14px; margin-bottom: 5px; display: block; color: #000000;">Adresse email</label>
+            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="Email" aria-describedby="emailHelp" placeholder="Entrez votre email" value="{{ old('email') }}" required>
+            @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Password" class="form-label" style="font-size: 14px; margin-bottom: 5px; display: block; color: #000000;">Mot de passe</label>
+            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="Password" placeholder="Entrez votre mot de passe" required>
+            @error('password')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                <label class="form-check-label" for="remember" style="color: #000000;">
+                    Se souvenir de moi
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <p><a href="{{ route('client.register') }}" style="color: #000000;">Créer un compte</a></p>
+        </div>
+
+        <button type="submit" name="valider" class="btn btn-primary w-100">Connexion</button>
+    </form>
 
    <script src="./script/script.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

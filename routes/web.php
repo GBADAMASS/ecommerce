@@ -25,10 +25,15 @@ Route::get('/contact', [PagesController::class, 'contact'])->name('front.contact
 
 
 // Routes pour la gestion des utilisateurs ou clients
-Route::get('/client/login', [ClientController::class, 'login' ])->name('client.login');
+Route::get('/client/login', [ClientController::class, 'login'])->name('client.login');
+Route::post('/client/login/post', [ClientController::class, 'loginPost'])->name('client.login.post');
 
 Route::get('/client/register', [ClientController::class, 'register'])->name('client.register');
+Route::post('/client/register/post', [ClientController::class, 'registerPost'])->name('client.register.post');
 
-// Route pour le back end
-Route::post('client/register/post', [ClientController::class, 'registerPost'])->name('client.register.post');
+// Routes protégées par authentification
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('dashboard');
+    Route::post('/client/logout', [ClientController::class, 'logout'])->name('client.logout');
+});
 
