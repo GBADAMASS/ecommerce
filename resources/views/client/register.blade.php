@@ -14,38 +14,57 @@
   </head>
 
   <body style="background: url(./image/3d-illustration-smartphone-with-delivery-scooter-boxes-paper-bags.jpg) no-repeat center center fixed; background-size: cover;">
-
-<form method="post" class="register-form">
+///////////
+<form action="{{route('client.register.post')}}" method="post" class="register-form">
     @csrf
-  <h2 >Créer un compte</h2>
+  <h2>Créer un compte</h2>
+
+  @if (session()->has('success'))
+      <div class="alert alert-success">
+          {{ session()->get('success') }}
+      </div>
+  @endif
+
+  @if ($errors->any())
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+  @endif
+
   <div  class="form-group " >
      <label for="nom">Nom</label>
      <input type="text" name="nom" id="Nom" placeholder="Entrez votre nom complet">
   </div>
   <div  class="form-group ">
-     <label for="telephone">Téléphone</label>
-     <input type="text" name="telephone" id="telephone" placeholder="Entrez votre numéro">
+     <label for="prenom">Prenom</label>
+     <input type="text" name="prenom" id="telephone" placeholder="Entrez votre numéro">
   </div>
 
   <div  class="form-group ">
      <label for="email">Adresse email</label>
      <input type="email" name="email" id="Email" placeholder="Entrez votre email">
   </div>
-  <div   class="form-group ">
+  <div class="form-group">
      <label for="Password">Mot de passe</label>
      <input type="password" name="password" id="Password" placeholder="Entrez votre mot de passe">
   </div>
-  <div style="margin-bottom: 18px;">
-     <label for="ConfirmPassword">Confirmer le mot de passe</label>
-     <input type="password" id="ConfirmPassword" placeholder="Confirmez votre mot de passe">
+
+  <div class="form-group">
+     <label for="password_confirmation">Confirmer le mot de passe</label>
+     <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirmez votre mot de passe">
   </div>
+
     <button type="submit" name="submit">S'inscrire</button>
     <div class="register-links">
-     <a href="#">mot de passe oublié ?</a>
-     <a href="login.html">Connexion</a>
+     <p>mot de passe oublié ? </p>
+     <a href="{{route('client.login')}}">Connexion</a>
     </div>
   </form>
-</form>
+
 
 
 

@@ -18,7 +18,7 @@
   <body>
 
 
-    <form method="post" class="register-form" style=" align-item:center; width: 350px; margin: auto;  margin-top: 2rem; margin-left: 2rem;  padding: 20px; border-radius: 20px; background-color: #cea7a76b;">
+    <form  action="{{ route('')}}" method="post" class="register-form" style=" align-item:center; width: 350px; margin: auto;  margin-top: 2rem; margin-left: 2rem;  padding: 20px; border-radius: 20px; background-color: #cea7a76b;">
         @csrf
     <div class="text-center mb-4">
         <h2 style="width: 100%; color: #000000; font-size: xx-large; ">Connexion</h2>

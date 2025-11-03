@@ -23,9 +23,20 @@ class RolesSeeder extends Seeder
        // }
     public function run(): void{
 
-$admin = new Role();
-$admin->libelle = "Administrateur";
-$admin->save();
+        // Création du rôle Administrateur
+        $admin = new Role();
+        $admin->libelle = "ADMIN";
+        $admin->save();
+/////////////////////////////////////////////////////////////
+        // Création du rôle Client
+        $client = new Role();
+        $client->libelle = "CLIENT";
+        $client->save();
+
+        // Création du rôle Vendeur
+        $seller = new Role();
+        $seller->libelle = "SELLER";
+        $seller->save();
 
 
     }

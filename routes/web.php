@@ -29,5 +29,6 @@ Route::get('/client/login', [ClientController::class, 'login' ])->name('client.l
 
 Route::get('/client/register', [ClientController::class, 'register'])->name('client.register');
 
-
+// Route pour le back end
+Route::post('client/register/post', [ClientController::class, 'registerPost'])->name('client.register.post');
 
